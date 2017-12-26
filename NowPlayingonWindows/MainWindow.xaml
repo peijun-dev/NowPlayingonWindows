@@ -5,8 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NowPlayingonWindows"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        Title="NowPlaying on Windows" Height="296" Width="450" ResizeMode="CanResizeWithGrip" ShowInTaskbar="False">
+    <Grid Margin="0,0,200,-21">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="button" Content="PINCODEを所得して下さい" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" Width="155" Click="button_Click" Height="20"/>
+        <Button x:Name="button1" Content="認証" HorizontalAlignment="Left" Margin="20,100,0,0" VerticalAlignment="Top" Width="160" Click="button1_Click" Height="21"/>
+        <TextBox x:Name="textbox" HorizontalAlignment="Left" Height="20" Margin="20,60,0,0" TextWrapping="Wrap" Text="pinを入力" VerticalAlignment="Top" Width="160"/>
+        <Button x:Name="button2" Content="実行" HorizontalAlignment="Left" Margin="22,152,0,0" VerticalAlignment="Top" Width="160" Height="20" Click="button2_Click" RenderTransformOrigin="0.431,-3.1"/>
+        <Button x:Name="button3" Content="終了" HorizontalAlignment="Left" Margin="22,197,0,0" VerticalAlignment="Top" Width="160" Height="20" Click="button3_Click"/>
+
     </Grid>
 </Window>
