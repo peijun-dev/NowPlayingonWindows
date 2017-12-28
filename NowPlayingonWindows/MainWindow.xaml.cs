@@ -24,8 +24,30 @@ namespace NowPlayingonWindows
         //PINCODEを取得
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            session = OAuth.Authorize("5hCvlgzl4pT7LmdKwNwTpSanq", "vli2vuIYm1jLSjV7A2HhLGEhYaoIeCBJKiPz01jGe3X4M5dkuO");
-            System.Diagnostics.Process.Start(session.AuthorizeUri.AbsoluteUri);
+            try
+            {
+                /*
+                if (key.Text == "")
+                {
+                    MessageBox.Show("keyを入力してください");
+                    return;
+                }
+                else if (secret.Text == "")
+                {
+                    MessageBox.Show("secretを入力してください");
+                    return;
+                }
+                session = OAuth.Authorize(key.Text, secret.Text);
+                System.Diagnostics.Process.Start(session.AuthorizeUri.AbsoluteUri);*/
+
+                session = OAuth.Authorize("5hCvlgzl4pT7LmdKwNwTpSanq", "vli2vuIYm1jLSjV7A2HhLGEhYaoIeCBJKiPz01jGe3X4M5dkuO");
+                System.Diagnostics.Process.Start(session.AuthorizeUri.AbsoluteUri);
+            }
+            catch (CoreTweet.TwitterException twe)
+            {
+                MessageBox.Show(twe.Message, twe.Source);
+            }
+            
         }
 
         //トークンを取得
