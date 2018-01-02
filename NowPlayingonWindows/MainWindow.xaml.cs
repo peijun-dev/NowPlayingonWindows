@@ -1,50 +1,14 @@
 ﻿using System.Windows;
 using CoreTweet;
 using iTunesLib;
+using TM = System.Timers;
 using System;
-using TH = System.Threading;
-using System.Windows.Forms;
-using System.Threading;
-using System.ComponentModel;
-using System.Threading.Tasks;
 
 namespace NowPlayingonWindows
 {
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック
     /// </summary>
-
-    public class Person : INotifyPropertyChanged
-    {
-        private string _name;
-        //iTunes COMのセットアップ
-        private iTunesApp iTunes1;
-        
-        public string Name
-        {
-            get { return _name; }
-            set
-            {
-                IITTrack track1 = iTunes1.CurrentTrack;
-                if (Equals(_name, value)) return;
-
-                _name = value;
-                OnPropertyChanged(track1.Name);
-            }
-        }
-
-        #region INotifyPropertyChanged メンバ
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string name)
-        {
-            if (PropertyChanged == null) return;
-
-            PropertyChanged(this, new PropertyChangedEventArgs(name));
-        }
-        #endregion
-    }
-
     public partial class MainWindow : Window
     {
         //変数の指定
@@ -52,11 +16,9 @@ namespace NowPlayingonWindows
         public Tokens tokens;
         private iTunesApp iTunes;
 
-        
         public MainWindow()
         {
             InitializeComponent();
-
         }
 
         //PINCODEを取得
@@ -104,23 +66,29 @@ namespace NowPlayingonWindows
 
         }
 
-
-        //ツイート
+        //6分ごとに処理
         private void button2_Click(object sender, RoutedEventArgs e)
         {
+            TM.Timer timer = new TM.Timer();
+            timer.Elapsed += new TM.ElapsedEventHandler(TimeDisp);
+            timer.Interval = 360000;
+            timer.AutoReset = true;
+            timer.Enabled = true;
 
+        }
 
+        //ツイート
+        private void TimeDisp(object sender, EventArgs e)
+        {
             //iTunes COMのセットアップ
             iTunesApp iTunes = new iTunesApp();
             IITTrack track = iTunes.CurrentTrack;
 
-            //再生されていない時の処理
-            if (track == null)
+            if (iTunes == null)
             {
                 System.Windows.Forms.MessageBox.Show("iTunesで曲が再生されていません");
                 return;
             }
-
 
 
             //変数の指定
@@ -139,59 +107,7 @@ namespace NowPlayingonWindows
 
             //お知らせ
             System.Windows.Forms.MessageBox.Show("実行します。");
-
-            Task.Run(() => {
-
-                var p = new Person();
-                
-                while (true)
-                {
-                    // プロパティに変更があった場合に呼び出されるイベントを登録
-                    p.PropertyChanged += NameChanged;
-                    p.Name = track.Name;
-                }
-            });
-
-
         }
-
-        private static void NameChanged(object sender, PropertyChangedEventArgs e)
-        {
-            //iTunes COMのセットアップ
-            iTunesApp iTunes2 = new iTunesApp();
-            IITTrack track2 = iTunes2.CurrentTrack;
-
-            // 文字列でプロパティ名を判別
-            if (e.PropertyName != track2.Name) return;
-
-            // そしてキャスト
-            var p = (Person)sender;
-
-            // 各々の処理
-            //iTunes COMの再セットアップ
-            //iTunesApp iTunes1 = new iTunesApp();
-            //IITTrack track1 = iTunes1.CurrentTrack;
-
-            //再ツイート
-            //string text1 = track1.Name;
-            //tokens.Statuses.Update(status => text1);
-            System.Windows.MessageBox.Show("成功だよ");
-        }
-
-
-        /* 内容が変更された場合の処理
-        private void TxtGreeting_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            //iTunes COMの再セットアップ
-            iTunesApp iTunes1 = new iTunesApp();
-            IITTrack track1 = iTunes1.CurrentTrack;
-
-            //再ツイート
-            string text1 = track1.Name;
-            tokens.Statuses.Update(status => text1);
-        }
-        */
-
 
         private void button3_Click(object sender, RoutedEventArgs e)
         {
