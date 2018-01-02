@@ -3,19 +3,70 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:extk="clr-namespace:Xceed.Wpf.Toolkit.Converters;assembly=Xceed.Wpf.Toolkit"
         xmlns:local="clr-namespace:NowPlayingonWindows"
+        xmlns:extk1="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="NowPlaying on Windows" Height="296" Width="450" ResizeMode="CanResizeWithGrip" ShowInTaskbar="False">
-    <Grid Margin="0,0,200,-21">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="0*"/>
-        </Grid.ColumnDefinitions>
-        <Button x:Name="button" Content="PINCODEを所得して下さい" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" Width="155" Click="button_Click" Height="20"/>
-        <Button x:Name="button1" Content="認証" HorizontalAlignment="Left" Margin="20,100,0,0" VerticalAlignment="Top" Width="160" Click="button1_Click" Height="21"/>
-        <TextBox x:Name="textbox" HorizontalAlignment="Left" Height="20" Margin="20,60,0,0" TextWrapping="Wrap" Text="pinを入力" VerticalAlignment="Top" Width="160"/>
-        <Button x:Name="button2" Content="実行" HorizontalAlignment="Left" Margin="22,152,0,0" VerticalAlignment="Top" Width="160" Height="20" Click="button2_Click" RenderTransformOrigin="0.431,-3.1"/>
-        <Button x:Name="button3" Content="終了" HorizontalAlignment="Left" Margin="22,197,0,0" VerticalAlignment="Top" Width="160" Height="20" Click="button3_Click"/>
-
-    </Grid>
+        Title="NowPlaying on Windows" 
+        Height="300" Width="450" 
+        MinHeight="300" MinWidth="450"
+        MaxHeight="300" MaxWidth="450" ResizeMode="NoResize" ShowInTaskbar="False">
+    <StackPanel Grid.Row="3">
+        <Grid Margin="0,0,230,0" Height="270">
+            <Button x:Name="button" 
+                    Content="PINCODEを所得して下さい" 
+                    Margin="20,20,20,0" 
+                    VerticalAlignment="Top" 
+                    Click="button_Click" 
+                    Height="20"/>
+            <extk1:WatermarkTextBox x:Name="textbox" 
+                                    Watermark="pinを入力"
+                                    FontSize="12"
+                                    Height="25"
+                                    Margin="20,70,20,0"
+                                    TextWrapping="Wrap"
+                                    VerticalAlignment="Top"/>
+            <!--<TextBox x:Name="textbox"
+                 Height="20"
+                 Margin="20,70,250,0" 
+                 TextWrapping="Wrap" 
+                 Text="pinを入力" 
+                 VerticalAlignment="Top"/>-->
+            <Button x:Name="button1" 
+                    Content="認証" 
+                    Margin="20,150,20,0" 
+                    VerticalAlignment="Top" 
+                    Click="button1_Click" 
+                    Height="20"/>
+            <Button x:Name="button2" 
+                    Content="実行" 
+                    Margin="22,190,20,0" 
+                    VerticalAlignment="Top" 
+                    Height="20" 
+                    Click="button2_Click"/>
+            <Button x:Name="button3" 
+                    Content="終了" 
+                    Margin="22,230,20,0" 
+                    VerticalAlignment="Top" 
+                    Height="20" 
+                    Click="button3_Click"/>
+        </Grid>
+        <!--
+        <Grid Margin="214,-270,0,0">
+            <extk1:WatermarkTextBox x:Name="key" 
+                                    Watermark="consumer key"
+                                    FontSize="12"
+                                    Height="25"
+                                    Margin="20,20,20,0"
+                                    TextWrapping="Wrap"
+                                    VerticalAlignment="Top"/>
+            <extk1:WatermarkTextBox x:Name="secret" 
+                                    Watermark="consumer secret"
+                                    FontSize="12"
+                                    Height="25"
+                                    Margin="20,70,20,0"
+                                    TextWrapping="Wrap"
+                                    VerticalAlignment="Top"/>
+        </Grid>-->
+    </StackPanel>
 </Window>
