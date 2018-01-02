@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using CoreTweet;
 using iTunesLib;
-using TM = System.Timers;
 using System;
 
 namespace NowPlayingonWindows
@@ -26,20 +25,6 @@ namespace NowPlayingonWindows
         {
             try
             {
-                /*
-                if (key.Text == "")
-                {
-                    MessageBox.Show("keyを入力してください");
-                    return;
-                }
-                else if (secret.Text == "")
-                {
-                    MessageBox.Show("secretを入力してください");
-                    return;
-                }
-                session = OAuth.Authorize(key.Text, secret.Text);
-                System.Diagnostics.Process.Start(session.AuthorizeUri.AbsoluteUri);*/
-
                 session = OAuth.Authorize("5hCvlgzl4pT7LmdKwNwTpSanq", "vli2vuIYm1jLSjV7A2HhLGEhYaoIeCBJKiPz01jGe3X4M5dkuO");
                 System.Diagnostics.Process.Start(session.AuthorizeUri.AbsoluteUri);
             }
@@ -66,19 +51,8 @@ namespace NowPlayingonWindows
 
         }
 
-        //6分ごとに処理
-        private void button2_Click(object sender, RoutedEventArgs e)
-        {
-            TM.Timer timer = new TM.Timer();
-            timer.Elapsed += new TM.ElapsedEventHandler(TimeDisp);
-            timer.Interval = 360000;
-            timer.AutoReset = true;
-            timer.Enabled = true;
-
-        }
-
         //ツイート
-        private void TimeDisp(object sender, EventArgs e)
+        private void button2_Click(object sender, RoutedEventArgs e)
         {
             //iTunes COMのセットアップ
             iTunesApp iTunes = new iTunesApp();
